@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('is_public')->default(true);
             $table->dateTime('date')->nullable();
             $table->string('organizer')->nullable();
+            $table->string('image')->nullable(); // Adiciona campo para armazenar o caminho ou base64 da imagem
         });
     }
 
