@@ -4,7 +4,13 @@
 
 @section('content')
     <div class="container">
-        <h1 class="text-2xl font-bold my-4">Todos eventos</h1>
+        <div class="flex justify-between items-center my-4">
+            <h1 class="text-2xl font-bold my-4">Todos eventos</h1>
+            {{-- @auth --}}
+                <a href="{{ route('events.create') }}" class="inline-block px-4 py-2 bg-[#4439C5] text-white font-bold rounded shadow hover:bg-[#362fa3] transition">Criar evento</a>
+            {{-- @endauth --}}
+
+        </div>
         @if(session('success'))
             <div id="notification-success" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 text-center fixed top-6 left-1/2 transform -translate-x-1/2 z-50 shadow-lg transition-opacity duration-500">
                 {{ session('success') }}

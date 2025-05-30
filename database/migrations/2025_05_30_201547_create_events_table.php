@@ -16,11 +16,11 @@ return new class extends Migration
             $table->timestamps();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('location')->nullable();
+            $table->string('location');
             $table->boolean('is_public')->default(true);
-            $table->dateTime('date')->nullable();
-            $table->string('organizer')->nullable();
-            $table->string('image')->nullable(); // Adiciona campo para armazenar o caminho ou base64 da imagem
+            $table->string('image')->nullable();
+            $table->dateTime('date');
+            $table->string('organizer');
         });
     }
 

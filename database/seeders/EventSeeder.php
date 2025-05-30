@@ -22,6 +22,11 @@ class EventSeeder extends Seeder
                 'is_public' => rand(0, 1),
                 'date' => now()->addDays($i),
                 'organizer' => 'Organizador ' . $i,
+                'items' => [
+                    'item1' => 'Item 1 do evento ' . $i,
+                    'item2' => 'Item 2 do evento ' . $i,
+                    'item3' => 'Item 3 do evento ' . $i,
+                ],
             ]);
             // Simula participantes aleatórios
             if (method_exists($event, 'users')) {

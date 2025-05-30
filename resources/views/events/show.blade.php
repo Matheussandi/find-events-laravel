@@ -17,6 +17,16 @@
                 <h2 class="text-lg font-semibold mb-1">Descrição</h2>
                 <p class="text-gray-700">{{ $event->description ?? 'Nenhuma descrição informada.' }}</p>
             </div>
+            @if($event->items && is_array($event->items) && count($event->items))
+            <div class="mt-4">
+                <h2 class="text-lg font-semibold mb-1">Itens do evento</h2>
+                <ul class="list-disc list-inside text-gray-700">
+                    @foreach($event->items as $item)
+                        <li>{{ $item }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <div class="mt-6 flex gap-2">
                 <a href="{{ route('events.index') }}" class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition">Voltar</a>
                 @auth

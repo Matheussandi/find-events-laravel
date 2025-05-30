@@ -33,16 +33,23 @@ class EventController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'date' => 'required|date',
+            'description' => 'nullable|string|max:1000',
+            'location' => 'required|string|max:255',
             'is_public' => 'required|boolean',
             'organizer' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'items' => 'nullable|array',
         ]);
 
         $event = new Event();
         $event->title = $validated['title'];
         $event->date = $validated['date'];
         $event->is_public = $validated['is_public'];
+        $event->description = $request->input('description', null);
         $event->organizer = $validated['organizer'] ?? null;
+        $event->location = $validated['location'];
+        $event->image = null;
+        $event->items = $validated['items'] ?? [];
 
         // Armazenamento da imagem usando Storage facade
         if ($request->hasFile('image')) {

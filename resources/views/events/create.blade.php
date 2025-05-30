@@ -5,6 +5,25 @@
 @section('content')
     <div class="container">
         
+        @if($errors->any())
+            <div id="notification-error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-center fixed top-6 left-1/2 transform -translate-x-1/2 z-50 shadow-lg transition-opacity duration-500">
+                <ul class="list-disc list-inside">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            <script>
+                setTimeout(() => {
+                    const notif = document.getElementById('notification-error');
+                    if (notif) {
+                        notif.style.opacity = '0';
+                        setTimeout(() => notif.remove(), 500);
+                    }
+                }, 3000);
+            </script>
+        @endif
+
         <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4 bg-white p-6 rounded shadow max-w-lg mx-auto mt-8">
             <h1 class="text-2xl font-bold mb-4">Criar evento</h1>
             @csrf
@@ -31,6 +50,21 @@
                 <label for="image" class="block font-semibold">Imagem do evento</label>
                 <input type="file" name="image" id="image" class="w-full border rounded p-2" accept="image/*" onchange="previewImage(event)">
                 <div id="image-preview" class="mt-2"></div>
+            </div>
+            <div>
+                <label for="location" class="block font-semibold">Localização</label>
+                <input type="text" name="location" id="location" class="w-full border rounded p-2" required>
+            </div>
+            <div>
+                <label class="block font-semibold mb-2">Itens do evento</label>
+                <div class="flex flex-wrap gap-4">
+                    <label><input type="checkbox" name="items[]" value="Cadeira"> Cadeira</label>
+                    <label><input type="checkbox" name="items[]" value="Mesa"> Mesa</label>
+                    <label><input type="checkbox" name="items[]" value="Projetor"> Projetor</label>
+                    <label><input type="checkbox" name="items[]" value="Microfone"> Microfone</label>
+                    <label><input type="checkbox" name="items[]" value="Água"> Água</label>
+                    <label><input type="checkbox" name="items[]" value="Coffee Break"> Coffee Break</label>
+                </div>
             </div>
             <script>
                 function previewImage(event) {
