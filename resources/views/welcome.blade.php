@@ -3,6 +3,9 @@
 @section('title', 'Welcome Page')
 
 @section('content')
+    @auth
+        <script>window.location = '{{ route('dashboard') }}';</script>
+    @else
     <div class="container mx-auto flex flex-col items-center justify-center py-16">
         <h1 class="text-4xl font-extrabold text-[#4439C5] mb-4 text-center">Bem-vindo ao AGENDA.AI</h1>
         <h2 class="text-2xl font-semibold text-gray-800 mb-2 text-center">Sua agenda inteligente de eventos</h2>
@@ -19,4 +22,5 @@
             <a href="{{ route('login') }}" class="px-8 py-3 bg-white border border-[#4439C5] text-[#4439C5] font-bold rounded shadow hover:bg-gray-100 transition">Já tenho conta</a>
         </div>
     </div>
+    @endauth
 @endsection
