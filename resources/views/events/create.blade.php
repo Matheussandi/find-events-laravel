@@ -4,9 +4,10 @@
 
 @section('content')
     <div class="container">
-        
-        @if($errors->any())
-            <div id="notification-error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-center fixed top-6 left-1/2 transform -translate-x-1/2 z-50 shadow-lg transition-opacity duration-500">
+
+        @if ($errors->any())
+            <div id="notification-error"
+                class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-center fixed top-6 left-1/2 transform -translate-x-1/2 z-50 shadow-lg transition-opacity duration-500">
                 <ul class="list-disc list-inside">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -24,12 +25,17 @@
             </script>
         @endif
 
-        <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4 bg-white p-6 rounded shadow max-w-lg mx-auto mt-8">
+        <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data"
+            class="space-y-4 bg-white p-6 rounded shadow max-w-lg mx-auto mt-8">
             <h1 class="text-2xl font-bold mb-4">Criar evento</h1>
             @csrf
             <div>
                 <label for="title" class="block font-semibold">Título</label>
                 <input type="text" name="title" id="title" class="w-full border rounded p-2" required>
+            </div>
+            <div>
+                <label for="location" class="block font-semibold">Localização</label>
+                <input type="text" name="location" id="location" class="w-full border rounded p-2" required>
             </div>
             <div>
                 <label for="date" class="block font-semibold">Data</label>
@@ -43,17 +49,14 @@
                 </select>
             </div>
             <div>
-                <label for="organizer" class="block font-semibold">Organizador</label>
-                <input type="text" name="organizer" id="organizer" class="w-full border rounded p-2">
+                <input type="text" name="organizer" id="organizer" class="w-full border rounded p-2" hidden
+                    value="{{ auth()->user()->name }}">
             </div>
             <div>
                 <label for="image" class="block font-semibold">Imagem do evento</label>
-                <input type="file" name="image" id="image" class="w-full border rounded p-2" accept="image/*" onchange="previewImage(event)">
+                <input type="file" name="image" id="image" class="w-full border rounded p-2" accept="image/*"
+                    onchange="previewImage(event)">
                 <div id="image-preview" class="mt-2"></div>
-            </div>
-            <div>
-                <label for="location" class="block font-semibold">Localização</label>
-                <input type="text" name="location" id="location" class="w-full border rounded p-2" required>
             </div>
             <div>
                 <label class="block font-semibold mb-2">Itens do evento</label>
@@ -80,12 +83,13 @@
                     }
                 }
             </script>
-            
-            <div class="space-y-4">
-                <button type="submit" class="bg-[#4439C5] w-full text-white px-4 py-2 rounded font-bold hover:bg-[#362fa3]">Criar</button>
-                <a href="{{ route('events.index') }}" class="block text-center text-blue-600 hover:underline">Voltar para eventos</a>
-            </div>
 
+            <div class="space-y-4">
+                <button type="submit"
+                    class="bg-[#4439C5] w-full text-white px-4 py-2 rounded font-bold hover:bg-[#362fa3]">Criar</button>
+                <a href="{{ route('events.index') }}" class="block text-center text-blue-600 hover:underline">Voltar para
+                    eventos</a>
+            </div>
         </form>
     </div>
 @endsection

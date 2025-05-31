@@ -13,6 +13,10 @@
             <p class="text-gray-600 mb-2 flex items-center"><x-heroicon-o-calendar-days class="w-5 h-5 mr-1 text-gray-400" />Data: {{ $event->date ? \Carbon\Carbon::parse($event->date)->format('d/m/Y') : 'Não informada' }}</p>
             <p class="text-gray-500 mb-2 flex items-center"><x-heroicon-o-users class="w-5 h-5 mr-1 text-blue-400" />Participantes: {{ $event->users ? $event->users->count() : 0 }}</p>
             <p class="text-gray-500 mb-2 flex items-center"><x-heroicon-o-eye class="w-5 h-5 mr-1 text-green-400" />É público: {{ $event->is_public ? 'Sim' : 'Não' }}</p>
+            <p class="text-gray-500 mb-2 flex items-center">
+                <x-heroicon-o-user class="w-5 h-5 mr-1 text-purple-400" />Organizador:
+                <span class="ml-1 font-bold">{{ $event->user ? $event->user->name : ($event->organizer ?? 'Não informado') }}</span>
+            </p>
             <div class="mt-4">
                 <h2 class="text-lg font-semibold mb-1">Descrição</h2>
                 <p class="text-gray-700">{{ $event->description ?? 'Nenhuma descrição informada.' }}</p>

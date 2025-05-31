@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -65,6 +66,11 @@ class EventController extends Controller
             $event->image = $path;
         }
 
+        // Associar o evento ao usuário autenticado, se houver
+        if (Auth::check()) {
+            $event->user_id = Auth::id();
+        }
+        
         $event->save();
 
         return redirect()->route('events.index')->with('success', 'Evento criado com sucesso.');
