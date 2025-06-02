@@ -1,61 +1,85 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# FIND EVENT
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Bem-vindo ao **FIND EVENT**, uma plataforma completa de eventos! Aqui você pode criar, editar e participar de eventos de outras pessoas. Gerencie seus próprios eventos, descubra novas oportunidades e conecte-se com outros participantes de forma simples e prática.
 
-## About Laravel
+## Funcionalidades
+- Descubra eventos incríveis e participe com um clique
+- Crie seus próprios eventos e convide amigos
+- Gerencie sua agenda de forma prática e visual
+- Itens de evento customizáveis (cadeira, mesa, projetor, etc.)
+- Suporte a eventos públicos e privados
+- Autenticação, cadastro e painel do usuário
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologias Utilizadas
+- **Laravel 12**
+- **PHP 8.2+**
+- **Jetstream** (autenticação)
+- **Livewire**
+- **TailwindCSS**
+- **Vite**
+- **SQLite** (padrão, mas pode ser MySQL/PostgreSQL)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Instalação
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Clone o repositório:**
+   ```zsh
+   git clone https://github.com/Matheussandi/find-events-laravel.git
+   cd find-events-laravel
+   ```
+2. **Instale as dependências PHP:**
+   ```zsh
+   composer install
+   ```
+3. **Instale as dependências JavaScript:**
+   ```zsh
+   npm install
+   ```
+4. **Copie o arquivo de ambiente:**
+   ```zsh
+   cp .env.example .env
+   ```
+5. **Gere a chave da aplicação:**
+   ```zsh
+   php artisan key:generate
+   ```
+6. **Configure o banco de dados:**
+   - Por padrão, usa SQLite. O arquivo `database/database.sqlite` já está incluído. Para MySQL/PostgreSQL, edite `.env`.
+7. **Rode as migrations e seeders:**
+   ```zsh
+   php artisan migrate --seed
+   ```
+8. **Inicie o servidor de desenvolvimento:**
+   ```zsh
+   npm run dev & php artisan serve
+   ```
+   Ou use o comando integrado:
+   ```zsh
+   composer run dev
+   ```
 
-## Learning Laravel
+## Testes
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Execute os testes automatizados com:
+```zsh
+php artisan test
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Estrutura do Projeto
+- `app/` - Código principal (controllers, models, etc.)
+- `database/migrations/` - Migrations do banco de dados
+- `resources/views/` - Views Blade
+- `routes/web.php` - Rotas web
+- `public/` - Arquivos públicos
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Configuração
+- Variáveis de ambiente no arquivo `.env`
+- Idioma padrão: pt_BR (com fallback para inglês)
+- Para personalizar itens de eventos, edite as migrations e views relacionadas
 
-## Laravel Sponsors
+## Scripts Úteis
+- `npm run dev` — Inicia o Vite em modo desenvolvimento
+- `npm run build` — Gera os arquivos para produção
+- `composer run dev` — Sobe tudo (PHP, filas, logs, Vite) em paralelo
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Contribuição
+Contribuições são bem-vindas! Abra uma issue ou envie um pull request.
