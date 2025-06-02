@@ -2,13 +2,15 @@
 
 Bem-vindo ao **FIND EVENT**, uma plataforma completa de eventos! Aqui você pode criar, editar e participar de eventos de outras pessoas. Gerencie seus próprios eventos, descubra novas oportunidades e conecte-se com outros participantes de forma simples e prática.
 
+![Image](https://github.com/user-attachments/assets/1587c9b4-cf27-42df-b560-0d551f219d65)
+
 ## Funcionalidades
-- Descubra eventos incríveis e participe com um clique
-- Crie seus próprios eventos e convide amigos
-- Gerencie sua agenda de forma prática e visual
-- Itens de evento customizáveis (cadeira, mesa, projetor, etc.)
-- Suporte a eventos públicos e privados
-- Autenticação, cadastro e painel do usuário
+- [x] Descubra eventos incríveis e participe com um clique
+- [x] Crie seus próprios eventos e convide amigos
+- [x] Gerencie sua agenda de forma prática e visual
+- [x] Itens de evento customizáveis (cadeira, mesa, projetor, etc.)
+- [x] Suporte a eventos públicos e privados
+- [x] Autenticação, cadastro e painel do usuário
 
 ## Tecnologias Utilizadas
 - **Laravel 12**
@@ -17,7 +19,7 @@ Bem-vindo ao **FIND EVENT**, uma plataforma completa de eventos! Aqui você pode
 - **Livewire**
 - **TailwindCSS**
 - **Vite**
-- **SQLite** (padrão, mas pode ser MySQL/PostgreSQL)
+- **MySQL** (padrão, mas pode ser PostgreSQL ou SQLite)
 
 ## Instalação
 
@@ -43,7 +45,8 @@ Bem-vindo ao **FIND EVENT**, uma plataforma completa de eventos! Aqui você pode
    php artisan key:generate
    ```
 6. **Configure o banco de dados:**
-   - Por padrão, usa SQLite. O arquivo `database/database.sqlite` já está incluído. Para MySQL/PostgreSQL, edite `.env`.
+   - Por padrão, usa MySQL. Configure as variáveis `DB_DATABASE`, `DB_USERNAME` e `DB_PASSWORD` no arquivo `.env`.
+   - Para usar PostgreSQL ou SQLite, ajuste a variável `DB_CONNECTION` e os demais parâmetros conforme necessário.
 7. **Rode as migrations e seeders:**
    ```zsh
    php artisan migrate --seed
