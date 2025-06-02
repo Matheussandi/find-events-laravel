@@ -1,8 +1,4 @@
-@extends('layouts.main')
-
-@section('title', $event->title)
-
-@section('content')
+<x-app-layout>
 <div class="container mx-auto max-w-3xl py-8">
     <div class="bg-white rounded-xl shadow-lg overflow-hidden">
         <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
@@ -43,4 +39,4 @@
         </div>
     </div>
 </div>
-@endsection
+</x-app-layout>

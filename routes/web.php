@@ -17,7 +17,7 @@ Route::post('/login', function (Request $request) {
     $credentials = $request->only('email', 'password');
     if (Auth::attempt($credentials, $request->filled('remember'))) {
         $request->session()->regenerate();
-        return redirect()->intended('dashboard');
+        return redirect()->intended('/dashboard');
     }
     return back()->withErrors([
         'email' => 'As credenciais informadas estão incorretas.',
@@ -32,9 +32,7 @@ Route::post('/logout', function () {
 })->name('logout');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [EventController::class, 'dashboard'])->name('events.dashboard');
 
     Route::get('/events', [EventController::class, 'index'])->name('events.index');
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
@@ -42,4 +40,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
     Route::get('/events/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
     Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
 });

@@ -1,8 +1,4 @@
-@extends('layouts.main')
-
-@section('title', 'Welcome Page')
-
-@section('content')
+<x-guest-layout>
     @auth
         <script>window.location = '{{ route('dashboard') }}';</script>
     @else
@@ -23,4 +19,4 @@
         </div>
     </div>
     @endauth
-@endsection
+</x-guest-layout>

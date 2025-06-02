@@ -19,45 +19,49 @@
                 }, 3000);
             </script>
         @endif
-        <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data"
+        <form action="{{ route('events.update', $event->id) }}" method="POST" enctype="multipart/form-data"
             class="space-y-4 bg-white p-8 rounded shadow max-w-xl mx-auto mt-8">
             @csrf
+            @method('PUT')
             <div>
                 <label for="title" class="block font-semibold mb-1">Título</label>
-                <input type="text" name="title" id="title" class="w-full border rounded p-2" required>
+                <input type="text" name="title" id="title" class="w-full border rounded p-2" required value="{{ old('title', $event->title) }}">
             </div>
             <div>
                 <label for="location" class="block font-semibold mb-1">Localização</label>
-                <input type="text" name="location" id="location" class="w-full border rounded p-2" required>
+                <input type="text" name="location" id="location" class="w-full border rounded p-2" required value="{{ old('location', $event->location) }}">
             </div>
             <div>
                 <label for="date" class="block font-semibold mb-1">Data</label>
-                <input type="date" name="date" id="date" class="w-full border rounded p-2" required>
+                <input type="date" name="date" id="date" class="w-full border rounded p-2" required value="{{ old('date', $event->date ? \Carbon\Carbon::parse($event->date)->format('Y-m-d') : '' ) }}">
             </div>
             <div>
                 <label for="is_public" class="block font-semibold mb-1">É público?</label>
                 <select name="is_public" id="is_public" class="w-full border rounded p-2">
-                    <option value="1">Sim</option>
-                    <option value="0">Não</option>
+                    <option value="1" {{ old('is_public', $event->is_public) == 1 ? 'selected' : '' }}>Sim</option>
+                    <option value="0" {{ old('is_public', $event->is_public) == 0 ? 'selected' : '' }}>Não</option>
                 </select>
             </div>
-            <input type="text" name="organizer" id="organizer" class="w-full border rounded p-2" hidden
-                value="{{ auth()->user()->name }}">
+            <input type="text" name="organizer" id="organizer" class="w-full border rounded p-2" hidden value="{{ old('organizer', $event->organizer ?? (auth()->user()->name ?? '')) }}">
             <div>
                 <label for="image" class="block font-semibold mb-1">Imagem do evento</label>
-                <input type="file" name="image" id="image" class="w-full border rounded p-2" accept="image/*"
-                    onchange="previewImage(event)">
-                <div id="image-preview" class="mt-2"></div>
+                <input type="file" name="image" id="image" class="w-full border rounded p-2" accept="image/*" onchange="previewImage(event)">
+                <div id="image-preview" class="mt-2">
+                    @if ($event->image)
+                        <img src="{{ Storage::disk('public')->url($event->image) }}" alt="Imagem atual" class="max-h-48 rounded shadow border mt-2">
+                    @endif
+                </div>
             </div>
             <div>
                 <label class="block font-semibold mb-2">Itens do evento</label>
                 <div class="flex flex-wrap gap-4">
-                    <label><input type="checkbox" name="items[]" value="Cadeira"> Cadeira</label>
-                    <label><input type="checkbox" name="items[]" value="Mesa"> Mesa</label>
-                    <label><input type="checkbox" name="items[]" value="Projetor"> Projetor</label>
-                    <label><input type="checkbox" name="items[]" value="Microfone"> Microfone</label>
-                    <label><input type="checkbox" name="items[]" value="Água"> Água</label>
-                    <label><input type="checkbox" name="items[]" value="Coffee Break"> Coffee Break</label>
+                    @php $items = old('items', $event->items ?? []); @endphp
+                    <label><input type="checkbox" name="items[]" value="Cadeira" {{ in_array('Cadeira', $items) ? 'checked' : '' }}> Cadeira</label>
+                    <label><input type="checkbox" name="items[]" value="Mesa" {{ in_array('Mesa', $items) ? 'checked' : '' }}> Mesa</label>
+                    <label><input type="checkbox" name="items[]" value="Projetor" {{ in_array('Projetor', $items) ? 'checked' : '' }}> Projetor</label>
+                    <label><input type="checkbox" name="items[]" value="Microfone" {{ in_array('Microfone', $items) ? 'checked' : '' }}> Microfone</label>
+                    <label><input type="checkbox" name="items[]" value="Água" {{ in_array('Água', $items) ? 'checked' : '' }}> Água</label>
+                    <label><input type="checkbox" name="items[]" value="Coffee Break" {{ in_array('Coffee Break', $items) ? 'checked' : '' }}> Coffee Break</label>
                 </div>
             </div>
             <script>
@@ -75,8 +79,7 @@
                 }
             </script>
             <div class="space-y-4">
-                <button type="submit"
-                    class="bg-[#4439C5] w-full text-white px-4 py-2 rounded font-bold hover:bg-[#362fa3]">Criar</button>
+                <button type="submit" class="bg-[#4439C5] w-full text-white px-4 py-2 rounded font-bold hover:bg-[#362fa3]">Salvar alterações</button>
                 <a href="{{ url()->previous() }}" class="block text-center text-blue-600 hover:underline">Voltar</a>
             </div>
         </form>
