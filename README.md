@@ -23,6 +23,55 @@ Bem-vindo ao **FIND EVENT**, uma plataforma completa de eventos! Aqui você pode
 
 ## Instalação
 
+Este projeto foi desenvolvido utilizando o [Laravel Sail](https://laravel.com/docs/12.x/sail), que facilita a configuração do ambiente com Docker. **Recomendado:** utilize o Sail para evitar problemas de dependências e garantir que tudo funcione igual ao ambiente de desenvolvimento original.
+
+### 1. Usando Laravel Sail (Docker) — Recomendado
+
+1. **Clone o repositório:**
+   ```zsh
+   git clone https://github.com/Matheussandi/find-events-laravel.git
+   cd find-events-laravel
+   ```
+2. **Instale as dependências PHP:**
+   ```zsh
+   ./vendor/bin/sail composer install
+   ```
+3. **Instale as dependências JavaScript:**
+   ```zsh
+   ./vendor/bin/sail npm install
+   ```
+4. **Copie o arquivo de ambiente:**
+   ```zsh
+   cp .env.example .env
+   ```
+5. **Gere a chave da aplicação:**
+   ```zsh
+   ./vendor/bin/sail artisan key:generate
+   ```
+6. **Configure o banco de dados:**
+   - Por padrão, usa MySQL (já configurado no docker-compose). Se quiser usar PostgreSQL, edite o `docker-compose.yml` e `.env`.
+7. **Suba os containers:**
+   ```zsh
+   ./vendor/bin/sail up -d
+   ```
+8. **Rode as migrations e seeders:**
+   ```zsh
+   ./vendor/bin/sail artisan migrate --seed
+   ```
+9. **Inicie o servidor de desenvolvimento:**
+   ```zsh
+   ./vendor/bin/sail npm run dev
+   # O servidor PHP já estará rodando no container
+   ```
+
+> Você pode prefixar qualquer comando PHP, Artisan ou NPM com `./vendor/bin/sail` para rodar dentro do container.
+
+---
+
+### 2. Rodando Localmente (sem Docker)
+
+> **Atenção:** Você precisará ter PHP 8.2+, Composer, Node.js, NPM e um banco MySQL/PostgreSQL instalados na sua máquina.
+
 1. **Clone o repositório:**
    ```zsh
    git clone https://github.com/Matheussandi/find-events-laravel.git
@@ -45,8 +94,7 @@ Bem-vindo ao **FIND EVENT**, uma plataforma completa de eventos! Aqui você pode
    php artisan key:generate
    ```
 6. **Configure o banco de dados:**
-   - Por padrão, usa MySQL. Configure as variáveis `DB_DATABASE`, `DB_USERNAME` e `DB_PASSWORD` no arquivo `.env`.
-   - Para usar PostgreSQL ou SQLite, ajuste a variável `DB_CONNECTION` e os demais parâmetros conforme necessário.
+   - Edite o arquivo `.env` com as credenciais do seu banco (MySQL ou PostgreSQL).
 7. **Rode as migrations e seeders:**
    ```zsh
    php artisan migrate --seed
