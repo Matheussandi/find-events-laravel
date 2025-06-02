@@ -25,15 +25,18 @@
             @method('PUT')
             <div>
                 <label for="title" class="block font-semibold mb-1">Título</label>
-                <input type="text" name="title" id="title" class="w-full border rounded p-2" required value="{{ old('title', $event->title) }}">
+                <input type="text" name="title" id="title" class="w-full border rounded p-2" required
+                    value="{{ old('title', $event->title) }}">
             </div>
             <div>
                 <label for="location" class="block font-semibold mb-1">Localização</label>
-                <input type="text" name="location" id="location" class="w-full border rounded p-2" required value="{{ old('location', $event->location) }}">
+                <input type="text" name="location" id="location" class="w-full border rounded p-2" required
+                    value="{{ old('location', $event->location) }}">
             </div>
             <div>
                 <label for="date" class="block font-semibold mb-1">Data</label>
-                <input type="date" name="date" id="date" class="w-full border rounded p-2" required value="{{ old('date', $event->date ? \Carbon\Carbon::parse($event->date)->format('Y-m-d') : '' ) }}">
+                <input type="date" name="date" id="date" class="w-full border rounded p-2" required
+                    value="{{ old('date', $event->date ? \Carbon\Carbon::parse($event->date)->format('Y-m-d') : '') }}">
             </div>
             <div>
                 <label for="is_public" class="block font-semibold mb-1">É público?</label>
@@ -42,13 +45,16 @@
                     <option value="0" {{ old('is_public', $event->is_public) == 0 ? 'selected' : '' }}>Não</option>
                 </select>
             </div>
-            <input type="text" name="organizer" id="organizer" class="w-full border rounded p-2" hidden value="{{ old('organizer', $event->organizer ?? (auth()->user()->name ?? '')) }}">
+            <input type="text" name="organizer" id="organizer" class="w-full border rounded p-2" hidden
+                value="{{ old('organizer', $event->organizer ?? (auth()->user()->name ?? '')) }}">
             <div>
                 <label for="image" class="block font-semibold mb-1">Imagem do evento</label>
-                <input type="file" name="image" id="image" class="w-full border rounded p-2" accept="image/*" onchange="previewImage(event)">
+                <input type="file" name="image" id="image" class="w-full border rounded p-2" accept="image/*"
+                    onchange="previewImage(event)">
                 <div id="image-preview" class="mt-2">
                     @if ($event->image)
-                        <img src="{{ Storage::disk('public')->url($event->image) }}" alt="Imagem atual" class="max-h-48 rounded shadow border mt-2">
+                        <img src="{{ Storage::disk('public')->url($event->image) }}" alt="Imagem atual"
+                            class="max-h-48 rounded shadow border mt-2">
                     @endif
                 </div>
             </div>
@@ -56,32 +62,42 @@
                 <label class="block font-semibold mb-2">Itens do evento</label>
                 <div class="flex flex-wrap gap-4">
                     @php $items = old('items', $event->items ?? []); @endphp
-                    <label><input type="checkbox" name="items[]" value="Cadeira" {{ in_array('Cadeira', $items) ? 'checked' : '' }}> Cadeira</label>
-                    <label><input type="checkbox" name="items[]" value="Mesa" {{ in_array('Mesa', $items) ? 'checked' : '' }}> Mesa</label>
-                    <label><input type="checkbox" name="items[]" value="Projetor" {{ in_array('Projetor', $items) ? 'checked' : '' }}> Projetor</label>
-                    <label><input type="checkbox" name="items[]" value="Microfone" {{ in_array('Microfone', $items) ? 'checked' : '' }}> Microfone</label>
-                    <label><input type="checkbox" name="items[]" value="Água" {{ in_array('Água', $items) ? 'checked' : '' }}> Água</label>
-                    <label><input type="checkbox" name="items[]" value="Coffee Break" {{ in_array('Coffee Break', $items) ? 'checked' : '' }}> Coffee Break</label>
+                    <label><input type="checkbox" name="items[]" value="Cadeira"
+                            {{ in_array('Cadeira', $items) ? 'checked' : '' }}> Cadeira</label>
+                    <label><input type="checkbox" name="items[]" value="Mesa"
+                            {{ in_array('Mesa', $items) ? 'checked' : '' }}> Mesa</label>
+                    <label><input type="checkbox" name="items[]" value="Projetor"
+                            {{ in_array('Projetor', $items) ? 'checked' : '' }}> Projetor</label>
+                    <label><input type="checkbox" name="items[]" value="Microfone"
+                            {{ in_array('Microfone', $items) ? 'checked' : '' }}> Microfone</label>
+                    <label><input type="checkbox" name="items[]" value="Água"
+                            {{ in_array('Água', $items) ? 'checked' : '' }}> Água</label>
+                    <label><input type="checkbox" name="items[]" value="Coffee Break"
+                            {{ in_array('Coffee Break', $items) ? 'checked' : '' }}> Coffee Break</label>
                 </div>
             </div>
-            <script>
-                function previewImage(event) {
-                    const preview = document.getElementById('image-preview');
-                    preview.innerHTML = '';
-                    const file = event.target.files[0];
-                    if (file) {
-                        const img = document.createElement('img');
-                        img.src = URL.createObjectURL(file);
-                        img.className = 'max-h-48 rounded shadow border mt-2';
-                        img.onload = () => URL.revokeObjectURL(img.src);
-                        preview.appendChild(img);
-                    }
-                }
-            </script>
+
             <div class="space-y-4">
-                <button type="submit" class="bg-[#4439C5] w-full text-white px-4 py-2 rounded font-bold hover:bg-[#362fa3]">Salvar alterações</button>
+                <button type="submit"
+                    class="bg-[#4439C5] w-full text-white px-4 py-2 rounded font-bold hover:bg-[#362fa3]">Salvar
+                    alterações</button>
                 <a href="{{ url()->previous() }}" class="block text-center text-blue-600 hover:underline">Voltar</a>
             </div>
         </form>
     </div>
+
+    <script>
+        function previewImage(event) {
+            const preview = document.getElementById('image-preview');
+            preview.innerHTML = '';
+            const file = event.target.files[0];
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.className = 'max-h-48 rounded shadow border mt-2';
+                img.onload = () => URL.revokeObjectURL(img.src);
+                preview.appendChild(img);
+            }
+        }
+    </script>
 </x-app-layout>

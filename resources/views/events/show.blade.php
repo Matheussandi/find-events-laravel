@@ -27,12 +27,15 @@
                 </ul>
             </div>
             @endif
-            <div class="mt-6 flex gap-2">
-                <a href="{{ route('events.index') }}" class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition">Voltar</a>
+            <div class="flex justify-center mt-6">
                 @auth
-                    <form action="#" method="POST">
+                    <form action="{{ route('events.join', $event->id) }}" method="POST">
                         @csrf
-                        <button type="submit" class="px-4 py-2 bg-[#4439C5] text-white rounded hover:bg-[#362fa3] transition">Participar</button>
+                        @if($event->users && $event->users->contains(auth()->user()->id))
+                            <button type="button" class="px-4 py-2 bg-gray-300 text-gray-600 rounded cursor-not-allowed" disabled>Já participando</button>
+                        @else
+                            <button type="submit" class="px-4 py-2 bg-[#4439C5] text-white rounded hover:bg-[#362fa3] transition">Participar</button>
+                        @endif
                     </form>
                 @endauth
             </div>

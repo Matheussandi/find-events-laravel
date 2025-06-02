@@ -12,7 +12,7 @@ class EventController extends Controller
     public function index()
     {
         $search = request('search');
-        $perPage = 10;
+        $perPage = 9;
 
         if ($search) {
             $events = Event::where('title', 'like', '%' . $search . '%')
@@ -35,7 +35,6 @@ class EventController extends Controller
 
     public function create()
     {
-        // Logic to show the form for creating a new event
         return view('events.create');
     }
     
@@ -75,11 +74,17 @@ class EventController extends Controller
 
         $event->save();
 
-        return redirect()->route('events.index')->with('success', 'Evento criado com sucesso.');
+        return redirect()->route('events.dashboard')->with('success', 'Evento criado com sucesso.');
     }
+
     public function edit($id)
     {
         $event = Event::findOrFail($id);
+
+        // Editar somente o evento se o usuário for o criador
+        if (Auth::check() && Auth::id() !== $event->user_id) {
+            return redirect()->route('events.dashboard')->with('error', 'Você não tem permissão para editar este evento.');
+        }
 
         return view('events.edit', ['event' => $event]);
     }
@@ -118,7 +123,7 @@ class EventController extends Controller
 
         $event->save();
 
-        return redirect()->route('events.index')->with('success', 'Evento atualizado com sucesso.');
+        return redirect()->route('events.dashboard')->with('success', 'Evento atualizado com sucesso.');
     }
 
     public function destroy($id)
@@ -126,14 +131,42 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
 
-        return redirect()->route('events.index')->with('success', 'Evento excluído com sucesso.');
+        return redirect()->route('events.dashboard')->with('success', 'Evento excluído com sucesso.');
     }
 
     public function dashboard()
     {
         $user = Auth::user();
-        $events = Event::where('user_id', $user->id)->get();
-        
-        return view('events.dashboard', compact('events'));
+        $createdEvents = Event::where('user_id', $user->id)->get();
+        $participatingEvents = $user->attendingEvents;
+
+        return view('events.dashboard', [
+            'createdEvents' => $createdEvents,
+            'participatingEvents' => $participatingEvents
+        ]);
+    }
+
+    public function join($id)
+    {
+        $event = Event::findOrFail($id);
+        $user = Auth::user();
+
+        if (!$event->users()->where('user_id', $user->id)->exists()) {
+            $event->users()->attach($user->id);
+        }
+
+        return redirect()->route('events.dashboard', $id)->with('success', 'Você se inscreveu no evento' .$event->title . ' com sucesso.');
+    }
+
+    public function leave($id)
+    {
+        $event = Event::findOrFail($id);
+        $user = Auth::user();
+
+        if ($event->users()->where('user_id', $user->id)->exists()) {
+            $event->users()->detach($user->id);
+        }
+
+        return redirect()->route('events.dashboard', $id)->with('success', 'Você saiu do evento' . $event->title . ' com sucesso.');
     }
 }

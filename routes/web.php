@@ -41,4 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/events/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
     Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+
+    Route::post('/events/{id}/join', [EventController::class, 'join'])->name('events.join');
+    Route::delete('/events/{id}/leave', [EventController::class, 'leave'])->name('events.leave');
 });

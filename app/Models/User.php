@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Event;
 
 class User extends Authenticatable
 {
@@ -71,5 +72,14 @@ class User extends Authenticatable
     public function events()
     {
         return $this->hasMany(Event::class);
+    }
+
+    /**
+     * The events that the user is attending.
+     */
+    public function attendingEvents()
+    {
+        return $this->belongsToMany(Event::class, 'event_user')
+            ->withTimestamps();
     }
 }

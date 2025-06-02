@@ -60,20 +60,7 @@
                     <label><input type="checkbox" name="items[]" value="Coffee Break"> Coffee Break</label>
                 </div>
             </div>
-            <script>
-                function previewImage(event) {
-                    const preview = document.getElementById('image-preview');
-                    preview.innerHTML = '';
-                    const file = event.target.files[0];
-                    if (file) {
-                        const img = document.createElement('img');
-                        img.src = URL.createObjectURL(file);
-                        img.className = 'max-h-48 rounded shadow border mt-2';
-                        img.onload = () => URL.revokeObjectURL(img.src);
-                        preview.appendChild(img);
-                    }
-                }
-            </script>
+
             <div class="space-y-4">
                 <button type="submit"
                     class="bg-[#4439C5] w-full text-white px-4 py-2 rounded font-bold hover:bg-[#362fa3]">Criar</button>
@@ -81,4 +68,19 @@
             </div>
         </form>
     </div>
+
+    <script>
+        function previewImage(event) {
+            const preview = document.getElementById('image-preview');
+            preview.innerHTML = '';
+            const file = event.target.files[0];
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.className = 'max-h-48 rounded shadow border mt-2';
+                img.onload = () => URL.revokeObjectURL(img.src);
+                preview.appendChild(img);
+            }
+        }
+    </script>
 </x-app-layout>

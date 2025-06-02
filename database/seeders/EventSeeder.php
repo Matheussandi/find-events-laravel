@@ -13,24 +13,20 @@ class EventSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = User::all();
-        for ($i = 1; $i <= 10; $i++) {
-            $event = Event::create([
-                'title' => 'Evento Exemplo ' . $i,
-                'description' => 'Descrição do evento exemplo ' . $i,
-                'location' => 'Cidade ' . $i,
-                'is_public' => rand(0, 1),
-                'date' => now()->addDays($i),
-                'organizer' => 'Organizador ' . $i,
-                'items' => [
-                    'item1' => 'Item 1 do evento ' . $i,
-                    'item2' => 'Item 2 do evento ' . $i,
-                    'item3' => 'Item 3 do evento ' . $i,
-                ],
+        $users = \App\Models\User::all();
+        if ($users->count() === 0) return;
+
+        for ($i = 1; $i <= 30; $i++) {
+            $creator = $users->random();
+            $event = \App\Models\Event::factory()->create([
+                'user_id' => $creator->id,
+                'organizer' => $creator->name,
             ]);
-            // Simula participantes aleatórios
-            if (method_exists($event, 'users')) {
-                $event->users()->attach($users->random(rand(1, 5))->pluck('id')->toArray());
+
+            // Participantes aleatórios (exceto o criador)
+            $participants = $users->where('id', '!=', $creator->id)->random(rand(0, 10))->pluck('id')->toArray();
+            if (!empty($participants)) {
+                $event->users()->attach($participants);
             }
         }
     }

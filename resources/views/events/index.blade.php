@@ -56,15 +56,7 @@
                         </form>
                     </div>
                 </div>
-                <script>
-                    const openBtn = document.getElementById('openFilterModal');
-                    const closeBtn = document.getElementById('closeFilterModal');
-                    const closeBtn2 = document.getElementById('closeFilterModal2');
-                    const modal = document.getElementById('filterModal');
-                    openBtn.addEventListener('click', () => modal.classList.remove('hidden'));
-                    closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
-                    closeBtn2.addEventListener('click', () => modal.classList.add('hidden'));
-                </script>
+
                 @if (count($events) > 0)
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         @foreach ($events as $event)
@@ -100,8 +92,8 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="mt-8">
-                        {{ $events->links() }}
+                    <div class="mt-8 flex justify-center">
+                        {{ $events->links('vendor.pagination.custom') }}
                     </div>
                 @else
                     <div class="flex flex-col items-center justify-center w-full py-16">
@@ -115,4 +107,14 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const openBtn = document.getElementById('openFilterModal');
+        const closeBtn = document.getElementById('closeFilterModal');
+        const closeBtn2 = document.getElementById('closeFilterModal2');
+        const modal = document.getElementById('filterModal');
+        openBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+        closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
+        closeBtn2.addEventListener('click', () => modal.classList.add('hidden'));
+    </script>
 </x-app-layout>
