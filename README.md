@@ -10,13 +10,13 @@ Bem-vindo ao **FIND EVENT**, uma plataforma completa de eventos! Aqui você pode
 
 ## Demonstração
 1. Visualizar eventos
-https://github.com/user-attachments/assets/3cbdacb1-20ec-4741-a7f5-9aec8488bc6e
+![Visualizar eventos](https://github.com/user-attachments/assets/3cbdacb1-20ec-4741-a7f5-9aec8488bc6e)
 
 2. Filtrar eventos
-https://github.com/user-attachments/assets/0d044022-22cb-4e60-9dc6-3c4f4bcadcb3
+![Filtrar eventos](https://github.com/user-attachments/assets/0d044022-22cb-4e60-9dc6-3c4f4bcadcb3)
 
 3. Criar e sair de eventos
-https://github.com/user-attachments/assets/ff7f5005-1a52-4548-abfd-1c0a6954b74e
+![Criar e sair de eventos](https://github.com/user-attachments/assets/ff7f5005-1a52-4548-abfd-1c0a6954b74e)
 
 ## Tecnologias Utilizadas
 - **Laravel 12**
