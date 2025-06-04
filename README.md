@@ -2,15 +2,21 @@
 
 Bem-vindo ao **FIND EVENT**, uma plataforma completa de eventos! Aqui você pode criar, editar e participar de eventos de outras pessoas. Gerencie seus próprios eventos, descubra novas oportunidades e conecte-se com outros participantes de forma simples e prática.
 
-![Image](https://github.com/user-attachments/assets/1587c9b4-cf27-42df-b560-0d551f219d65)
-
 ## Funcionalidades
-- [x] Descubra eventos incríveis e participe com um clique
-- [x] Crie seus próprios eventos e convide amigos
-- [x] Gerencie sua agenda de forma prática e visual
-- [x] Itens de evento customizáveis (cadeira, mesa, projetor, etc.)
-- [x] Suporte a eventos públicos e privados
-- [x] Autenticação, cadastro e painel do usuário
+- [x] Autenticação e autorização
+- [x] Visualizar eventos
+- [x] Filtro de eventos por título, participantes, localização e se é público
+- [x] Crie e saia de eventos
+
+## Demonstração
+1. Visualizar eventos
+https://github.com/user-attachments/assets/3cbdacb1-20ec-4741-a7f5-9aec8488bc6e
+
+2. Filtrar eventos
+https://github.com/user-attachments/assets/0d044022-22cb-4e60-9dc6-3c4f4bcadcb3
+
+3. Criar e sair de eventos
+https://github.com/user-attachments/assets/ff7f5005-1a52-4548-abfd-1c0a6954b74e
 
 ## Tecnologias Utilizadas
 - **Laravel 12**
