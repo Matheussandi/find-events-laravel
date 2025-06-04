@@ -1,6 +1,6 @@
-# FIND EVENT
+# FIND EVENTS
 
-Bem-vindo ao **FIND EVENT**, uma plataforma completa de eventos! Aqui você pode criar, editar e participar de eventos de outras pessoas. Gerencie seus próprios eventos, descubra novas oportunidades e conecte-se com outros participantes de forma simples e prática.
+Bem-vindo ao **FIND EVENTS**, uma plataforma completa de eventos! Aqui você pode criar, editar e participar de eventos de outras pessoas. Gerencie seus próprios eventos, descubra novas oportunidades e conecte-se com outros participantes de forma simples e prática.
 
 ## Funcionalidades
 - [x] Autenticação e autorização
@@ -9,7 +9,7 @@ Bem-vindo ao **FIND EVENT**, uma plataforma completa de eventos! Aqui você pode
 - [x] Crie e saia de eventos
 
 ## Demonstração
-1. Visualizar eventos:
+1. Visualizar eventos
 
 https://github.com/user-attachments/assets/bfc27776-d413-4a29-a8f0-f1a5fa8d39e1
 
