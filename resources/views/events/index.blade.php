@@ -5,8 +5,13 @@
                 <form action="{{ route('events.index') }}" method="GET"
                     class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
                     <div class="flex-1 flex items-center gap-2">
-                        <input type="text" name="search" placeholder="Buscar por título, descrição ou local"
+                        <input type="text" name="search" placeholder="Buscar por nome do evento"
                             class="p-2 border rounded w-full" value="{{ request('search') }}">
+                        <button type="submit"
+                            class="p-2 rounded bg-[#4439C5] text-white flex items-center hover:bg-[#362fa3] transition"
+                            title="Pesquisar">
+                            <x-heroicon-o-magnifying-glass class="w-5 h-5" />
+                        </button>
                         <button type="button" id="openFilterModal"
                             class="p-2 rounded bg-gray-100 border border-gray-400 text-gray-700 flex items-center hover:bg-gray-200 transition"
                             title="Filtros avançados">
@@ -45,9 +50,18 @@
                                         Privado</label>
                                 </div>
                             </div>
+                            <div>
+                                <label class="block font-semibold mb-2">Localização</label>
+                                <select name="location" class="p-2 border rounded w-full">
+                                    <option value="">Todas</option>
+                                    @foreach($locations as $location)
+                                        <option value="{{ $location }}" {{ request('location') == $location ? 'selected' : '' }}>{{ $location }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="flex justify-end gap-2">
-                                <button type="button" id="closeFilterModal2"
-                                    class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancelar</button>
+                                <a href="{{ route('events.index') }}"
+                                    class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Limpar filtro</a>
                                 <button type="submit"
                                     class="px-4 py-2 bg-[#4439C5] text-white rounded hover:bg-[#362fa3]">
                                     Filtrar
@@ -62,8 +76,16 @@
                         @foreach ($events as $event)
                             <div
                                 class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                                <img src="{{ $event->image ? Storage::disk('public')->url($event->image) : 'https://picsum.photos/400.webp' }}"
-                                    alt="Imagem do evento" class="w-full h-48 object-cover">
+                                <img 
+                                    src="{{ $event->image ? Storage::disk('public')->url($event->image) : 'https://picsum.photos/400.webp' }}"
+                                    alt="Imagem do evento" 
+                                    class="w-full h-48 object-cover event-img" 
+                                    style="display:none;"
+                                    onload="this.style.display='block'; if(this.nextElementSibling) this.nextElementSibling.style.display='none';"
+                                >
+                                <div class="flex items-center justify-center w-full h-48 bg-gray-100 event-img-loading">
+                                    <x-heroicon-o-arrow-path class="w-10 h-10 text-gray-400 animate-spin" />
+                                </div>
                                 <div class="p-6 flex flex-col flex-1 justify-between">
                                     <div>
                                         <h2 class="text-xl font-semibold mb-2">{{ $event->title }}</h2>
@@ -83,6 +105,10 @@
                                                 <x-heroicon-o-eye-slash class="w-5 h-5 mr-1 text-red-400" />
                                                 Público: <span class="ml-1 text-red-600 font-semibold">Não</span>
                                             @endif
+                                        </p>
+                                        <p class="text-gray-500 flex items-center">
+                                            <x-heroicon-o-map-pin class="w-5 h-5 mr-1 text-pink-400" />
+                                            {{ $event->location ?? 'Localização não informada' }}
                                         </p>
                                     </div>
                                     <a href="{{ route('events.show', $event->id) }}"
@@ -116,5 +142,14 @@
         openBtn.addEventListener('click', () => modal.classList.remove('hidden'));
         closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
         closeBtn2.addEventListener('click', () => modal.classList.add('hidden'));
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.event-img').forEach(function(img) {
+                if (img.complete) {
+                    img.style.display = 'block';
+                    if(img.nextElementSibling) img.nextElementSibling.style.display = 'none';
+                }
+            });
+        });
     </script>
 </x-app-layout>

@@ -13,18 +13,29 @@ class EventSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = \App\Models\User::all();
+        $users = User::all();
         if ($users->count() === 0) return;
 
-        for ($i = 1; $i <= 30; $i++) {
+        $bigEvents = rand(1, 5);
+        $totalEvents = 30;
+
+        for ($i = 1; $i <= $totalEvents; $i++) {
             $creator = $users->random();
-            $event = \App\Models\Event::factory()->create([
+            $event = Event::factory()->create([
                 'user_id' => $creator->id,
                 'organizer' => $creator->name,
             ]);
 
-            // Participantes aleatórios (exceto o criador)
-            $participants = $users->where('id', '!=', $creator->id)->random(rand(0, 10))->pluck('id')->toArray();
+            if ($i <= $bigEvents) {
+                // Evento grande: entre 101 e o máximo possível de participantes (exceto o criador)
+                $max = $users->count() - 1;
+                $qty = $max > 101 ? rand(101, $max) : $max;
+                $participants = $max > 0 ? $users->where('id', '!=', $creator->id)->random($qty)->pluck('id')->toArray() : [];
+            } else {
+                // Evento normal: até 10 participantes (exceto o criador)
+                $maxParticipants = min(10, $users->count() - 1);
+                $participants = $maxParticipants > 0 ? $users->where('id', '!=', $creator->id)->random(rand(0, $maxParticipants))->pluck('id')->toArray() : [];
+            }
             if (!empty($participants)) {
                 $event->users()->attach($participants);
             }

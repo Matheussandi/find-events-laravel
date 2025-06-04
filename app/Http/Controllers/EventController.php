@@ -14,16 +14,40 @@ class EventController extends Controller
         $search = request('search');
         $perPage = 9;
 
+        $query = Event::query();
+
         if ($search) {
-            $events = Event::where('title', 'like', '%' . $search . '%')
-                ->orWhere('description', 'like', '%' . $search . '%')
-                ->orWhere('location', 'like', '%' . $search . '%')
-                ->paginate($perPage);
-        } else {
-            $events = Event::paginate($perPage);
+            $query->where('title', 'like', '%' . $search . '%');
         }
 
-        return view('events.index', ['events' => $events, 'search' => $search]);
+        $location = request('location');
+        if ($location) {
+            $query->where('location', $location);
+        }
+
+        $maxParticipants = request('max_participants');
+        if ($maxParticipants) {
+            $query->whereHas('users', function($q) {}, '<=', $maxParticipants);
+        }
+
+        $isPublic = request('is_public');
+        if ($isPublic !== null && $isPublic !== '') {
+            $query->where('is_public', $isPublic);
+        }
+
+        $events = $query->paginate($perPage)->withQueryString();
+        $locations = Event::query()->distinct()->pluck('location');
+
+        return view(
+            'events.index',
+            [
+                'events' => $events,
+                'search' => $search,
+                'maxParticipants' => $maxParticipants,
+                'isPublic' => $isPublic,
+                'locations' => $locations,
+            ]
+        );
     }
 
     public function show($id)
@@ -37,7 +61,7 @@ class EventController extends Controller
     {
         return view('events.create');
     }
-    
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -155,7 +179,7 @@ class EventController extends Controller
             $event->users()->attach($user->id);
         }
 
-        return redirect()->route('events.dashboard', $id)->with('success', 'Você se inscreveu no evento' .$event->title . ' com sucesso.');
+        return redirect()->route('events.dashboard', $id)->with('success', 'Você se inscreveu no evento' . $event->title . ' com sucesso.');
     }
 
     public function leave($id)
