@@ -29,6 +29,15 @@ https://github.com/user-attachments/assets/ed4e5e98-8baf-426a-9081-8a4806c64929
 - **TailwindCSS**
 - **Vite**
 - **MySQL** (padrão, mas pode ser PostgreSQL ou SQLite)
+- **L5-Swagger** (documentação automática da API - Swagger/OpenAPI)
+
+## Documentação da API (Swagger)
+
+A documentação interativa da API está disponível após subir o ambiente em:
+
+- [http://localhost/api/documentation](http://localhost/api/documentation)
+
+Você pode testar os endpoints diretamente pela interface Swagger UI.
 
 ## Instalação
 
