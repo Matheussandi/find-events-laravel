@@ -1,4 +1,4 @@
-# FIND EVENTS
+# <p align="center">FIND EVENTS</p>
 
 Bem-vindo ao **FIND EVENTS**, uma plataforma completa de eventos! Aqui você pode criar, editar e participar de eventos de outras pessoas. Gerencie seus próprios eventos, descubra novas oportunidades e conecte-se com outros participantes de forma simples e prática.
 
@@ -13,11 +13,11 @@ Bem-vindo ao **FIND EVENTS**, uma plataforma completa de eventos! Aqui você pod
 
 https://github.com/user-attachments/assets/bfc27776-d413-4a29-a8f0-f1a5fa8d39e1
 
-3. Filtrar eventos
+2. Filtrar eventos
 
 https://github.com/user-attachments/assets/f538b61f-8ca0-46a6-a735-30589899fc6e
 
-4. Criar e sair de eventos
+3. Criar e sair de eventos
 
 https://github.com/user-attachments/assets/ed4e5e98-8baf-426a-9081-8a4806c64929
 
